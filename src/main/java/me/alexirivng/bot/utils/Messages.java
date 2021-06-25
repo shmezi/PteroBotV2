@@ -1,0 +1,20 @@
+package me.alexirivng.bot.utils;
+
+public enum Messages {
+    NOT_YOUR_ACCOUNT,
+    SEND_IN_SERVER,
+    INVALID_APIKEY,
+    LINKED,
+    NOT_LINKED,
+    PANEL_CREATED,
+    API_URL,
+    STAFF_ID,
+    PANEL_AVATAR_URL,
+    INFO_AVATAR_URL,
+    NO_SERVER,
+    MENTIONED_NOT_LINKED,
+    COMMAND_SENT,
+    RENAMED_SERVER,
+    REINSTALL,
+    REINSTALL_VERIFY
+}
