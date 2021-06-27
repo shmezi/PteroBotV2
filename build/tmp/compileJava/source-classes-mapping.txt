@@ -1,29 +1,28 @@
-me/alexirivng/bot/Embeds.java
- me.alexirivng.bot.Embeds
- me.alexirivng.bot.Embeds$1
 me/alexirivng/bot/utils/Messages.java
  me.alexirivng.bot.utils.Messages
-me/alexirivng/bot/utils/EmbedTypes.java
- me.alexirivng.bot.utils.EmbedTypes
 me/alexirivng/bot/utils/ButtonSet.java
  me.alexirivng.bot.utils.ButtonSet
-me/alexirivng/bot/Config.java
- me.alexirivng.bot.Config
 me/alexirivng/bot/utils/Mode.java
  me.alexirivng.bot.utils.Mode
-me/alexirivng/bot/events/ShutDown.java
- me.alexirivng.bot.events.ShutDown
-me/alexirivng/bot/events/SendMessage.java
- me.alexirivng.bot.events.SendMessage
+me/alexirivng/bot/Config.java
+ me.alexirivng.bot.Config
+me/alexirivng/bot/commands/Send.java
+ me.alexirivng.bot.commands.Send
+me/alexirivng/bot/utils/Utils.java
+ me.alexirivng.bot.utils.Utils
+ me.alexirivng.bot.utils.Utils$1
 me/alexirivng/bot/events/ButtonClick.java
  me.alexirivng.bot.events.ButtonClick
 me/alexirivng/bot/DiscordBot.java
  me.alexirivng.bot.DiscordBot
+me/alexirivng/bot/commands/Rename.java
+ me.alexirivng.bot.commands.Rename
 me/alexirivng/bot/ServerManager.java
  me.alexirivng.bot.ServerManager
  me.alexirivng.bot.ServerManager$1
-me/alexirivng/bot/Utils.java
- me.alexirivng.bot.Utils
- me.alexirivng.bot.Utils$1
+me/alexirivng/bot/commands/Link.java
+ me.alexirivng.bot.commands.Link
 me/alexirivng/bot/events/SlashCommand.java
  me.alexirivng.bot.events.SlashCommand
+me/alexirivng/bot/commands/Server.java
+ me.alexirivng.bot.commands.Server
