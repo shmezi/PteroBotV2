@@ -1,28 +1,42 @@
-me/alexirivng/bot/utils/Messages.java
- me.alexirivng.bot.utils.Messages
-me/alexirivng/bot/utils/ButtonSet.java
- me.alexirivng.bot.utils.ButtonSet
-me/alexirivng/bot/utils/Mode.java
- me.alexirivng.bot.utils.Mode
-me/alexirivng/bot/Config.java
- me.alexirivng.bot.Config
-me/alexirivng/bot/commands/Send.java
- me.alexirivng.bot.commands.Send
-me/alexirivng/bot/utils/Utils.java
- me.alexirivng.bot.utils.Utils
- me.alexirivng.bot.utils.Utils$1
-me/alexirivng/bot/events/ButtonClick.java
- me.alexirivng.bot.events.ButtonClick
-me/alexirivng/bot/DiscordBot.java
- me.alexirivng.bot.DiscordBot
-me/alexirivng/bot/commands/Rename.java
- me.alexirivng.bot.commands.Rename
-me/alexirivng/bot/ServerManager.java
- me.alexirivng.bot.ServerManager
- me.alexirivng.bot.ServerManager$1
-me/alexirivng/bot/commands/Link.java
- me.alexirivng.bot.commands.Link
-me/alexirivng/bot/events/SlashCommand.java
- me.alexirivng.bot.events.SlashCommand
-me/alexirivng/bot/commands/Server.java
- me.alexirivng.bot.commands.Server
+me/alexirving/bot/commands/Access.java
+ me.alexirving.bot.commands.Access
+me/alexirving/bot/commands/Rename.java
+ me.alexirving.bot.commands.Rename
+me/alexirving/bot/Database.java
+ me.alexirving.bot.Database
+me/alexirving/bot/utils/Mode.java
+ me.alexirving.bot.utils.Mode
+me/alexirving/bot/events/ButtonClick.java
+ me.alexirving.bot.events.ButtonClick
+me/alexirving/bot/utils/Utils.java
+ me.alexirving.bot.utils.Utils
+ me.alexirving.bot.utils.Utils$1
+me/alexirving/bot/commands/Create.java
+ me.alexirving.bot.commands.Create
+me/alexirving/bot/events/SlashCommand.java
+ me.alexirving.bot.events.SlashCommand
+me/alexirving/bot/commands/Help.java
+ me.alexirving.bot.commands.Help
+me/alexirving/bot/utils/ButtonSet.java
+ me.alexirving.bot.utils.ButtonSet
+me/alexirving/bot/commands/Setup.java
+ me.alexirving.bot.commands.Setup
+me/alexirving/bot/commands/Link.java
+ me.alexirving.bot.commands.Link
+me/alexirving/bot/ServerManager.java
+ me.alexirving.bot.ServerManager
+ me.alexirving.bot.ServerManager$1
+me/alexirving/bot/events/MessageSend.java
+ me.alexirving.bot.events.MessageSend
+me/alexirving/bot/commands/Send.java
+ me.alexirving.bot.commands.Send
+me/alexirving/bot/events/GuildJoin.java
+ me.alexirving.bot.events.GuildJoin
+me/alexirving/bot/commands/Server.java
+ me.alexirving.bot.commands.Server
+me/alexirving/bot/utils/Messages.java
+ me.alexirving.bot.utils.Messages
+me/alexirving/bot/commands/StaffHelp.java
+ me.alexirving.bot.commands.StaffHelp
+me/alexirving/bot/DiscordBot.java
+ me.alexirving.bot.DiscordBot
