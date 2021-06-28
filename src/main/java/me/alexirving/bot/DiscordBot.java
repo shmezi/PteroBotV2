@@ -39,9 +39,6 @@ public class DiscordBot {
             e.printStackTrace();
 
         }
-        if (arguments[0].equals("shutdown")){
-            api.shutdown();
-        }
 
     }
 

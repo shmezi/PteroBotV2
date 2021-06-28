@@ -10,6 +10,7 @@ import me.alexirving.bot.utils.ButtonSet;
 import me.alexirving.bot.utils.Messages;
 import me.alexirving.bot.utils.Mode;
 import me.alexirving.bot.utils.Utils;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -43,7 +44,8 @@ public class ButtonClick extends ListenerAdapter {
                         switch (command) {
                             case "n" -> {
                                 event.getHook().editOriginalEmbeds((ServerManager.updatePanel(member, Mode.NEXT, pteroClient))).setActionRow(ServerManager.generateButtons(member, ButtonSet.NAVIGATE)).queue();
-                                Database.infoPanelSessions.get(guildId, memberId).editMessageEmbeds(ServerManager.generateInfoPanel(member)).setActionRow(ServerManager.generateButtons(member, ButtonSet.ACTION)).queue();
+                                Database.infoPanelSessions.get(guildId, memberId).editMessageEmbeds((ServerManager.updatePanel(member, Mode.PREVIOUS, pteroClient))
+                                ).setActionRow(ServerManager.generateButtons(member, ButtonSet.ACTION)).queue();
                             }
                             case "b" -> {
                                 event.getHook().editOriginalEmbeds((ServerManager.updatePanel(member, Mode.PREVIOUS, pteroClient))).setActionRow(ServerManager.generateButtons(member, ButtonSet.NAVIGATE)).queue();

@@ -21,15 +21,12 @@ public class Server {
         String guildId = Objects.requireNonNull(event.getGuild()).getId();
         if (Objects.isNull(event.getOption("user"))) {
             if (Utils.isLinked(member)) {
-
                 currentToken.put(guildId, memberId, memberTokens.get(guildId, memberId));
                 createPanel(event, member, memberId, guildId);
 
             } else {
                 event.getHook().editOriginal(Utils.getConfigMessage(guildId, Messages.NOT_LINKED)).queue();
-
             }
-
         } else if (Utils.isStaff(member)) {
             Member mentioned = Objects.requireNonNull(event.getOption("user")).getAsMember();
             if (Utils.isLinked(mentioned)) {
@@ -47,39 +44,39 @@ public class Server {
     }
 
     private void createPanel(SlashCommandEvent event, Member member, String memberId, String guildId) {
-        if (Utils.isLinkValid(Utils.getConfigMessage(guildId, Messages.API_URL))){
-        if (!Objects.isNull(infoPanelSessionToDelete.get(guildId, memberId))) {
-            infoPanelSessionToDelete.get(guildId, memberId).delete().queue();
-        }
-        if (!Objects.isNull(panelSessionToDelete.get(guildId, memberId))) {
-            panelSessionToDelete.get(guildId, memberId).delete().queue();
-        }
-        panelSessionPageNumber.put(guildId, memberId, 0);
+        if (Utils.isLinkValid(Utils.getConfigMessage(guildId, Messages.API_URL))) {
+            if (!Objects.isNull(infoPanelSessionToDelete.get(guildId, memberId))) {
+                infoPanelSessionToDelete.get(guildId, memberId).delete().queue();
+            }
+            if (!Objects.isNull(panelSessionToDelete.get(guildId, memberId))) {
+                panelSessionToDelete.get(guildId, memberId).delete().queue();
+            }
+            panelSessionPageNumber.put(guildId, memberId, 0);
 
-        memberPteroClients.put(guildId, memberId, PteroBuilder.createClient(Utils.getConfigMessage(guildId, Messages.API_URL), currentToken.get(guildId, memberId)));
+            memberPteroClients.put(guildId, memberId, PteroBuilder.createClient(Utils.getConfigMessage(guildId, Messages.API_URL), currentToken.get(guildId, memberId)));
 
 
-        memberPteroClients.get(guildId, memberId).retrieveServers().executeAsync(
-                clientServers -> {
-                    if (clientServers.size() != 0) {
-                        memberServers.put(guildId, memberId, clientServers);
-                        event.getChannel().sendMessageEmbeds(ServerManager.updatePanel(member, Mode.UPDATE, memberPteroClients.get(guildId, memberId))).setActionRow(ServerManager.generateButtons(member, ButtonSet.NAVIGATE)).queue(message -> {
-                            panelSessionToDelete.put(guildId, memberId, message);
-                            panelSessions.put(guildId, memberId, message);
-                        });
-                        event.getChannel().sendMessageEmbeds(ServerManager.generateInfoPanel(member)).setActionRow(ServerManager.generateButtons(member, ButtonSet.ACTION)).queue(message -> {
-                            infoPanelSessions.put(guildId, memberId, message);
-                            infoPanelSessionToDelete.put(guildId, memberId, message);
-                        });
-                        event.getHook().editOriginal(Utils.getConfigMessage(guildId, Messages.PANEL_CREATED)).queue();
-                    } else {
-                        event.getHook().editOriginal(Utils.getConfigMessage(guildId, Messages.NO_SERVER)).queue();
+            memberPteroClients.get(guildId, memberId).retrieveServers().executeAsync(
+                    clientServers -> {
+                        if (clientServers.size() != 0) {
+                            memberServers.put(guildId, memberId, clientServers);
+                            event.getChannel().sendMessageEmbeds(ServerManager.updatePanel(member, Mode.UPDATE, memberPteroClients.get(guildId, memberId))).setActionRow(ServerManager.generateButtons(member, ButtonSet.NAVIGATE)).queue(message -> {
+                                panelSessionToDelete.put(guildId, memberId, message);
+                                panelSessions.put(guildId, memberId, message);
+                            });
+                            event.getChannel().sendMessageEmbeds(ServerManager.generateInfoPanel(member)).setActionRow(ServerManager.generateButtons(member, ButtonSet.ACTION)).queue(message -> {
+                                infoPanelSessions.put(guildId, memberId, message);
+                                infoPanelSessionToDelete.put(guildId, memberId, message);
+                            });
+                            event.getHook().editOriginal(Utils.getConfigMessage(guildId, Messages.PANEL_CREATED)).queue();
+                        } else {
+                            event.getHook().editOriginal(Utils.getConfigMessage(guildId, Messages.NO_SERVER)).queue();
+                        }
+
                     }
-
-                }
-        );
-    }else{
+            );
+        } else {
             event.getHook().editOriginal("API URL NOT SETUP CORRECTLY!").queue();
         }
-}
+    }
 }

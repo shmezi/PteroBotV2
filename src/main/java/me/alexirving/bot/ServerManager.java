@@ -1,6 +1,5 @@
 package me.alexirving.bot;
 
-import com.google.gson.Gson;
 import com.mattmalec.pterodactyl4j.DataType;
 import com.mattmalec.pterodactyl4j.PteroBuilder;
 import com.mattmalec.pterodactyl4j.client.entities.ClientServer;
@@ -14,15 +13,9 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.interactions.components.Button;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class ServerManager {
@@ -79,8 +72,9 @@ public class ServerManager {
         EmbedBuilder builder = new EmbedBuilder();
         builder.setTitle("Selected server: " + getCurrentServer(member).getName());
         PteroClient client;
+        if (Utils.isLinkValid(Utils.getConfigMessage(member.getGuild().getId(), Messages.API_URL))){
         if (Objects.isNull(Database.memberPteroClients.get(guildId, memberId))) {
-            if (Utils.isLinkValid(Utils.getConfigMessage(member.getGuild().getId(), Messages.API_URL))){
+
                 Database.memberPteroClients.put(guildId, memberId, PteroBuilder.createClient(Utils.getConfigMessage(member.getGuild().getId(), Messages.API_URL), Database.currentToken.get(guildId, memberId)));
                 client = Database.memberPteroClients.get(guildId, memberId);
             } else {
@@ -91,10 +85,14 @@ public class ServerManager {
             builder.appendDescription("**CPU: **" + Math.floor(Utils.getState(client, getCurrentServer(member)).getCPU()) + "/" + getCurrentServer(member).getLimits().getCPU() + "%\n\r");
             builder.appendDescription("**DISK: **" + Utils.getState(client, getCurrentServer(member)).getDiskFormatted(DataType.GB).replace(" GB", "") + "/" + Integer.parseInt(getCurrentServer(member).getLimits().getDisk()) / 1000 + "GB\n\r");
             builder.appendDescription("**ID: **" + getCurrentServer(member).getIdentifier());
-            }
+
 
 
         return builder.build();
+    }else{
+            builder.setTitle("API_URL NOT SET CORRECTLY!");
+            return builder.setColor(Color.RED).build();
+        }
     }
 
 

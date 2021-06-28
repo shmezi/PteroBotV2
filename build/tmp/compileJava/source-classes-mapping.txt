@@ -1,5 +1,5 @@
-me/alexirving/bot/commands/Access.java
- me.alexirving.bot.commands.Access
+me/alexirving/bot/DiscordBot.java
+ me.alexirving.bot.DiscordBot
 me/alexirving/bot/commands/Rename.java
  me.alexirving.bot.commands.Rename
 me/alexirving/bot/Database.java
@@ -13,8 +13,8 @@ me/alexirving/bot/utils/Utils.java
  me.alexirving.bot.utils.Utils$1
 me/alexirving/bot/commands/Create.java
  me.alexirving.bot.commands.Create
-me/alexirving/bot/events/SlashCommand.java
- me.alexirving.bot.events.SlashCommand
+me/alexirving/bot/commands/StaffHelp.java
+ me.alexirving.bot.commands.StaffHelp
 me/alexirving/bot/commands/Help.java
  me.alexirving.bot.commands.Help
 me/alexirving/bot/utils/ButtonSet.java
@@ -23,20 +23,20 @@ me/alexirving/bot/commands/Setup.java
  me.alexirving.bot.commands.Setup
 me/alexirving/bot/commands/Link.java
  me.alexirving.bot.commands.Link
-me/alexirving/bot/ServerManager.java
- me.alexirving.bot.ServerManager
- me.alexirving.bot.ServerManager$1
+me/alexirving/bot/utils/Messages.java
+ me.alexirving.bot.utils.Messages
 me/alexirving/bot/events/MessageSend.java
  me.alexirving.bot.events.MessageSend
 me/alexirving/bot/commands/Send.java
  me.alexirving.bot.commands.Send
 me/alexirving/bot/events/GuildJoin.java
  me.alexirving.bot.events.GuildJoin
+me/alexirving/bot/commands/Access.java
+ me.alexirving.bot.commands.Access
+me/alexirving/bot/ServerManager.java
+ me.alexirving.bot.ServerManager
+ me.alexirving.bot.ServerManager$1
 me/alexirving/bot/commands/Server.java
  me.alexirving.bot.commands.Server
-me/alexirving/bot/utils/Messages.java
- me.alexirving.bot.utils.Messages
-me/alexirving/bot/commands/StaffHelp.java
- me.alexirving.bot.commands.StaffHelp
-me/alexirving/bot/DiscordBot.java
- me.alexirving.bot.DiscordBot
+me/alexirving/bot/events/SlashCommand.java
+ me.alexirving.bot.events.SlashCommand
