@@ -8,6 +8,7 @@ import com.mattmalec.pterodactyl4j.client.entities.PteroClient;
 import me.alexirving.bot.utils.Messages;
 import net.dv8tion.jda.api.entities.Message;
 import org.apache.commons.collections4.map.MultiKeyMap;
+import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -91,6 +92,15 @@ public class Database {
         String object = gson.toJson(Database.getGuildConfiguration.rowMap(), Map.class);
         writer.write(object);
         writer.close();
+
+    }
+    public String getValue(String value,File file) throws IOException {
+        InputStream inputStream = new FileInputStream(file);
+        Yaml yaml = new Yaml();
+        Map<String, Object> map = yaml.load(inputStream);
+
+        return (String) map.get(value);
+
 
     }
 }

@@ -53,6 +53,9 @@ public class SlashCommand extends ListenerAdapter {
                 case "create":
                     new Create().createCommand(event);
                     break;
+                case "invite","inv":
+                    new Invite().inviteCommand(event);
+                    break;
             }
 
 

@@ -17,28 +17,40 @@ import java.nio.file.Paths;
 
 import static me.alexirving.bot.utils.Utils.updateActivity;
 
+//------------------------------------------------------------
+//TOUCHING MY CODE MAY RESULT IN DEATH. YOU HAVE BEEN WARNED!
+//------------------------------------------------------------
 public class DiscordBot {
 
+
     public static void main(String[] arguments) throws Exception {
-        Database.copyFile(new File("messages.json"),new File("messages.json"));
-        Database.copyFile(new File("tokens.json"),new File("tokens.json"));
-        Database.copyFile(new File("token.json"),new File("token.json"));
+
+
+        Database.copyFile(new File("messages.json"), new File("messages.json"));
+        Database.copyFile(new File("tokens.json"), new File("tokens.json"));
+        Database.copyFile(new File("token.json"), new File("token.json"));
         Reader reader = Files.newBufferedReader(Paths.get("token.json"));
         JsonObject jobj = new Gson().fromJson(reader, JsonObject.class);
-        String token = jobj.get("TOKEN").getAsString();
-        JDA api = JDABuilder.createDefault(token).build();
-        api.addEventListener(new SlashCommand());
-        api.addEventListener(new MessageSend());
-        api.addEventListener(new ButtonClick());
-        api.addEventListener(new GuildJoin());
-        try {
-            Database.updateMessaegsMap();
-            Database.updateTokenMaps();
-            updateActivity(api);
-        } catch (IOException e) {
-            e.printStackTrace();
+        for (
+                Object key : jobj.get("TOKEN").getAsJsonArray()
+        ) {
+            String token = key.toString().replace("\"", "");
+            JDA api = JDABuilder.createDefault(token).build();
 
+            api.addEventListener(new SlashCommand());
+            api.addEventListener(new MessageSend());
+            api.addEventListener(new ButtonClick());
+            api.addEventListener(new GuildJoin());
+            try {
+                Database.updateMessaegsMap();
+                Database.updateTokenMaps();
+                updateActivity(api);
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
         }
+
 
     }
 

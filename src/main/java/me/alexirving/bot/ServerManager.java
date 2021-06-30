@@ -23,6 +23,9 @@ public class ServerManager {
     public static MessageEmbed updatePanel(Member member, Mode mode, PteroClient client) {
         String guildId = member.getGuild().getId();
         String memberId = member.getId();
+        EmbedBuilder embedBuilder = new EmbedBuilder();
+        embedBuilder.setTitle(member.getUser().getName() + "'s server manager!");
+        embedBuilder.setThumbnail(Utils.getConfigMessage(guildId, Messages.PANEL_AVATAR_URL));
         switch (mode) {
             case PREVIOUS:
                 if (Database.panelSessionPageNumber.get(guildId, memberId) - 1 < 0) {
@@ -41,9 +44,7 @@ public class ServerManager {
             case UPDATE:
                 break;
         }
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setTitle(member.getUser().getName() + "'s server manager!");
-        embedBuilder.setThumbnail(Utils.getConfigMessage(guildId, Messages.PANEL_AVATAR_URL));
+
         int count = 0;
 
         for (Object key : client.retrieveServers().execute().toArray()) {
@@ -73,7 +74,7 @@ public class ServerManager {
         builder.setTitle("Selected server: " + getCurrentServer(member).getName());
         PteroClient client;
         if (Utils.isLinkValid(Utils.getConfigMessage(member.getGuild().getId(), Messages.API_URL))){
-        if (Objects.isNull(Database.memberPteroClients.get(guildId, memberId))) {
+            if (Objects.isNull(Database.memberPteroClients.get(guildId, memberId))) {
 
                 Database.memberPteroClients.put(guildId, memberId, PteroBuilder.createClient(Utils.getConfigMessage(member.getGuild().getId(), Messages.API_URL), Database.currentToken.get(guildId, memberId)));
                 client = Database.memberPteroClients.get(guildId, memberId);
@@ -88,8 +89,8 @@ public class ServerManager {
 
 
 
-        return builder.build();
-    }else{
+            return builder.build();
+        }else{
             builder.setTitle("API_URL NOT SET CORRECTLY!");
             return builder.setColor(Color.RED).build();
         }
