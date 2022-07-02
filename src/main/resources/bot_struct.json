@@ -1,0 +1,21 @@
+{
+  "clients": [
+    {
+      "discord": "",
+      "ownership": [
+      ]
+    }
+  ],
+  "bots": [
+    {
+      "id": "",
+      "settings": {
+        "URL": "",
+        "API": ""
+      },
+      "messages": {
+        "LINK": "LINK FAILURE!"
+      }
+    }
+  ]
+}

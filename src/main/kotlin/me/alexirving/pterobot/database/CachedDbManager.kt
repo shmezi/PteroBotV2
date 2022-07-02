@@ -3,15 +3,23 @@ package me.alexirving.pterobot.database
 /**
  * A managed set of data that is cached.
  * @param db The database to use for actions
+ * @param ID type of ID used for storage, example UUID
+ * @param T Data struct that is used
  */
-open class CachedManager<K : Any, T : Cacheable<K>>(
-    private val db: Database<K, Cacheable<K>>,
+open class CachedDbManager<ID : Any, T : Cacheable<ID>>(
+    private val db: Database<ID, Cacheable<ID>>,
     private val template: T
 ) {
-    protected val cache = mutableMapOf<String, T>() //Cache of all currently loaded users
+    private val cache = mutableMapOf<String, T>() //Cache of all currently loaded users
     private val updates = mutableSetOf<String>() //The users that their data has changed and db needs to be changed
     private val removals = mutableSetOf<String>() //The users that will be remove from the db next update
     private val cacheRemovals = mutableSetOf<String>() //The users that will be removed next cache update
+
+    init {
+        Runtime.getRuntime().addShutdownHook(Thread {
+            update()
+        })
+    }
 
     /**
      * Check if a user is currently cached
@@ -56,6 +64,11 @@ open class CachedManager<K : Any, T : Cacheable<K>>(
      * @param async - Will be called once data is retrieved
      */
     open fun get(identifier: String, async: (value: T) -> Unit) = get(identifier, false, async)
+
+    open fun list() {
+
+    }
+
 
     /**
      * Get data from the database. This will load the user if they aren't currently loaded into cache
