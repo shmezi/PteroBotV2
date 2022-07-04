@@ -1,5 +1,7 @@
 package me.alexirving.pterobot.database
 
+import me.alexirving.pterobot.pq
+
 /**
  * A managed set of data that is cached.
  * @param db The database to use for actions
@@ -117,7 +119,8 @@ open class CachedDbManager<ID : Any, T : Cacheable<ID>>(
      * Runs an update job, this will update all data in the database from cache and clear caches.
      */
     open fun update() {
-        println("Running db update, updating ${updates.size} items!")
+        println("Running DB update on \"${db.dbId}\", updating ${updates.size} items!")
+
         for (u in updates) {
             db.dbUpdate(cache[u] ?: continue)
         }

@@ -4,6 +4,7 @@ import dev.triumphteam.cmd.core.BaseCommand
 import dev.triumphteam.cmd.core.annotation.Command
 import dev.triumphteam.cmd.core.annotation.Default
 import dev.triumphteam.cmd.slash.sender.SlashSender
+import me.alexirving.pterobot.PteroLauncher.users
 import me.alexirving.pterobot.buildClientSafely
 import me.alexirving.pterobot.database.struct.Bot
 import me.alexirving.pterobot.database.struct.GuildSetting
@@ -26,8 +27,8 @@ class Link(private val bot: Bot) : BaseCommand() {
                 e.hook.editOriginal("You have been linked to the account with the name: ${pteroAccount.firstName}")
                     .queue()
 
-                bot.userDb.pq("DB should not be null!")?.get(e.user.id, true) {
-                    it.bots[bot.identifier]?.set(eg.id, apikey)
+                users.get(e.user.id, true) {
+                    it.bots[bot.identifier] = mutableMapOf<String, String>().apply { this[eg.id] = apikey }
                 }
             }
         }

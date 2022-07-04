@@ -2,6 +2,12 @@ package me.alexirving.pterobot
 
 import com.mattmalec.pterodactyl4j.PteroBuilder
 import com.mattmalec.pterodactyl4j.client.entities.PteroClient
+import dev.triumphteam.cmd.slash.sender.SlashSender
+import me.alexirving.pterobot.database.struct.Bot
+import me.alexirving.pterobot.database.struct.GuildSetting
+import net.dv8tion.jda.api.Permission
+import net.dv8tion.jda.api.entities.Guild
+import net.dv8tion.jda.api.entities.Member
 import okhttp3.OkHttpClient
 import java.io.File
 import java.nio.file.Files
@@ -20,6 +26,32 @@ fun buildClientSafely(url: String?, key: String, async: (client: PteroClient?) -
             async(null)
         }
     )
+}
+
+
+
+class ValidationScope(private val e: SlashSender, val guild: Guild) {
+    fun message(message: String) = e.hook.editOriginal(message).queue()
+
+}
+
+fun validateAdmin(e: SlashSender, valid: (scope: ValidationScope) -> Unit) {
+    val eg = e.guild
+    fun m(message: String) = e.hook.editOriginal(message).queue()
+    e.deferReply(true).queue()
+
+
+    if (eg == null) {
+        m("Commands must be run inside a guild!")
+        return
+    }
+
+    if (e.member?.hasPermission(Permission.ADMINISTRATOR) != true) {
+        m("You do not have permission to run this command!")
+
+    }
+
+    valid(ValidationScope(e, eg))
 }
 
 fun copyOver(dataFolder: File, vararg fileNames: String) {

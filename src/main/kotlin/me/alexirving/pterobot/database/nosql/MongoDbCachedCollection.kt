@@ -13,7 +13,7 @@ import java.util.*
 
 class MongoDbCachedCollection<ID : Any, T : Cacheable<ID>>
     (
-    dbId: String,
+    override val dbId: String,
     private val type: T,
     connection: MongoConnection,
     var cacheClear: Long = -1
