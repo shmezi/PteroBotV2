@@ -8,16 +8,17 @@ class PanelSession(
     private val client: PteroClient,
     private val hook: InteractionHook
 ) {
-    private val cached = mutableMapOf<String, ClientServer>()
+    val cached = mutableMapOf<String, ClientServer>()
 
     init {
-        reloadCache()
+        reloadCache {}
     }
 
-    fun reloadCache() {
+    fun reloadCache(done: () -> Unit) {
         client.retrieveServers().executeAsync {
             for (s in it)
                 cached[s.identifier] = s
+            done()
         }
     }
 
@@ -27,6 +28,6 @@ class PanelSession(
 
     operator fun get(key: String) = cached[key]
     operator fun inc(): PanelSession {
-        reloadCache(); return this
+        reloadCache{}; return this
     }
 }

@@ -8,7 +8,6 @@ import me.alexirving.pterobot.PteroLauncher.users
 import me.alexirving.pterobot.buildClientSafely
 import me.alexirving.pterobot.database.struct.Bot
 import me.alexirving.pterobot.database.struct.GuildSetting
-import me.alexirving.pterobot.pq
 
 @Command("link")
 class Link(private val bot: Bot) : BaseCommand() {
@@ -22,7 +21,7 @@ class Link(private val bot: Bot) : BaseCommand() {
             return
         }
         e.deferReply().queue()
-        buildClientSafely(bot.guilds[eg.id]?.get(GuildSetting.URL), apikey) { client ->
+        buildClientSafely(bot.getValue(eg.id, GuildSetting.URL), apikey) { client ->
             client?.retrieveAccount()?.executeAsync { pteroAccount ->
                 e.hook.editOriginal("You have been linked to the account with the name: ${pteroAccount.firstName}")
                     .queue()

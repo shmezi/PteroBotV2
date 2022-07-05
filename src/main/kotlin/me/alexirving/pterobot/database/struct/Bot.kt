@@ -32,6 +32,8 @@ class Bot(
         return PteroBuilder.createApplication(settings[GuildSetting.URL], settings[GuildSetting.API])
     }
 
+    fun getValue(guild: String, setting: GuildSetting) = guilds[guild]?.get(setting) ?: ""
+
     @JsonIgnore
     private val cmds = if (bot == null || template) null else SlashCommandManager.create(bot)
 
