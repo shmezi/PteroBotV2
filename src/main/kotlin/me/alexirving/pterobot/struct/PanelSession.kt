@@ -39,6 +39,7 @@ class PanelSession(
     }
 
     fun updatePanel(first: Boolean = false) {
+
         hook.editOriginalEmbeds(
             bot.getEmbed(member.guild.id, GuildSetting.PANEL_TEMPLATE)?.build(
                 mutableMapOf<String, String>().apply {
@@ -50,6 +51,7 @@ class PanelSession(
                     this["%selected_cpu_mb%"] = cached[current]?.cpu.toString()
 
                 })
+                ?: throw NullPointerException("No embed provided! please use /setup PANEL_TEMPLATE <json> using https://shmezi.github.io/embedbuilder/")
         ).queue()
         if (first) {
             val l = mutableListOf(

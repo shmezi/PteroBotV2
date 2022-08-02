@@ -4,6 +4,7 @@ import dev.triumphteam.cmd.core.BaseCommand
 import dev.triumphteam.cmd.core.annotation.*
 import dev.triumphteam.cmd.slash.sender.SlashSender
 import me.alexirving.pterobot.PteroLauncher.users
+import me.alexirving.pterobot.pq
 import me.alexirving.pterobot.struct.Bot
 import me.alexirving.pterobot.validateAdmin
 import net.dv8tion.jda.api.entities.Member
@@ -13,6 +14,7 @@ class Server(private val bot: Bot) : BaseCommand() {
     @Default
     @Description("Create new Panel Session")
     fun server(e: SlashSender, @ArgName("member") @Optional member: Member?) {
+        "server command run".pq()
         e.guild ?: return
         if (!validateAdmin(bot, e.event) && member != null) {
             return

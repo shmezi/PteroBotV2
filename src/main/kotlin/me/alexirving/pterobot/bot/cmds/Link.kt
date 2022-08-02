@@ -19,11 +19,12 @@ class Link(private val bot: Bot) : BaseCommand() {
     @Description("Link your panel account")
     fun link(e: SlashSender, @ArgName("apikey") @Description("Your API key from the panel") apikey: String) {
         val eg = e.guild
-        if (eg == null) {
+        val em = e.member
+        if (eg == null || em == null) {
             e.reply("Commands must be run inside a guild!").setEphemeral(true).queue()
             return
         }
-        e.deferReply().queue()
+        e.deferReply(true).queue()
         buildClientSafely(bot.getString(eg.id, GuildSetting.URL), apikey) { client ->
             client?.retrieveAccount()?.executeAsync { pteroAccount ->
                 e.hook.editOriginal("You have been linked to the account with the name: ${pteroAccount.firstName}")
@@ -31,7 +32,10 @@ class Link(private val bot: Bot) : BaseCommand() {
 
                 users.get(e.user.id, true) {
                     it.bots[bot.identifier] = mutableMapOf<String, String>().apply { this[eg.id] = apikey }
-//                    e.guild.addRoleToMember()
+                    eg.addRoleToMember(
+                        em,
+                        eg.getRoleById(bot.getString(eg.id, GuildSetting.LINKED) ?: return@get) ?: return@get
+                    ).queue()
                 }
             }
         }

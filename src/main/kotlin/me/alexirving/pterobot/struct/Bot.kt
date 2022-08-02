@@ -5,14 +5,13 @@ import com.mattmalec.pterodactyl4j.PteroBuilder
 import com.mattmalec.pterodactyl4j.application.entities.PteroApplication
 import dev.triumphteam.cmd.slash.SlashCommandManager
 import me.alexirving.lib.database.Cacheable
+import me.alexirving.pterobot.PteroLauncher
 import me.alexirving.pterobot.bot.cmds.Link
 import me.alexirving.pterobot.bot.cmds.Server
 import me.alexirving.pterobot.bot.cmds.Setup
-import me.alexirving.pterobot.bot.cmds.Test
 import me.alexirving.pterobot.embed.RawEmbed
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.entities.Member
-import javax.security.auth.login.LoginException
 
 
 class Bot(
@@ -23,16 +22,13 @@ class Bot(
     var token: String = "",
     val settings: MutableMap<String, MutableMap<GuildSetting, String>> = mutableMapOf(),
     val embeds: MutableMap<String, MutableMap<GuildSetting, RawEmbed>> = mutableMapOf(),
-    template: Boolean = false
+    dontBuildBot: Boolean = false
 ) : Cacheable<String>(id) {
 
+    //Fixme: I replaced with a cool token yay
     @JsonIgnore
-    private val bot = if (template) null else try {
-        JDABuilder.createDefault(token).build()
-    } catch (_: LoginException) {
-        println("The bot token for bot ID: \"${id}\" is invalid or missing :(")
-        null
-    }
+    private val bot =
+        if (dontBuildBot) null else JDABuilder.createDefault(PteroLauncher.settings.getProperty("TOKEN")).build()
 
     @JsonIgnore
     fun getApplication(guild: String): PteroApplication? {
@@ -47,17 +43,18 @@ class Bot(
     fun getEmbed(guild: String, setting: GuildSetting) = embeds[guild]?.get(setting)
 
     @JsonIgnore
-    private val cmds = if (bot == null || template) null else SlashCommandManager.create(bot).apply {
-        this.registerArgument(Member::class.java) { sender, args ->
-            sender.member?.guild?.retrieveMemberById(args)?.complete()
-
-        }
-
-
-    }
+    val cmds = if (dontBuildBot) null else SlashCommandManager.create(bot!!)
 
     init {
-        cmds?.registerCommand(Link(this), Server(this), Setup(this), Test(this))
         bot?.addEventListener(InteractionListeners(this))
+        cmds?.registerCommand(Link(this), Server(this), Setup(this))
+        try {
+            cmds?.updateAllCommands()
+        } catch (_: Exception) {
+        }
+    }
+
+    override fun clone(): Bot {
+        return Bot()
     }
 }

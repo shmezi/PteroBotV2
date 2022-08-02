@@ -24,9 +24,10 @@ dependencies {
     implementation("org.litote.kmongo:kmongo:4.5.1")
     implementation("com.mattmalec:Pterodactyl4J:2.BETA_134")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")/*CoRoutines - Used for async*/
-    implementation ("dev.triumphteam:triumph-cmd-jda-slash:2.0.0-SNAPSHOT")
     implementation("com.google.code.gson:gson:2.9.0")
-    implementation("com.github.shmezi:AlexLib:1.3")
+    implementation ("dev.triumphteam:triumph-cmd-jda-slash:2.0.0-SNAPSHOT")
+
+    implementation("com.github.shmezi:AlexLib:1.5.1")
 
 }
 tasks {
